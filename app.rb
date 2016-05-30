@@ -21,7 +21,7 @@ class PowerAPI < Sinatra::Base
     end
     load = Load.new
     load.hourly_loads = req['loads'].to_json
-    load.time = Time.now.t­o_f
+    load.time = Time.now.to_f
 
     if load.save
       status 201
