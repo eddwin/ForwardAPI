@@ -13,17 +13,20 @@ class PowerAPI < Sinatra::Base
 
   post '/loads' do
     content_type :json
-    body = request.body.read
-    logger.info body
-    time = Time.now
     begin
-      req = JSON.parse(body)
+      req = JSON.parse(request.body.read)
       logger.info req
-    rescue Exception => e
-      puts e.message
+    rescue
       halt 400
     end
-    req
+    load = Load.new
+    load.loads = req['loads'].to_json
+    load.time = Time.now.t­o_f
+
+    if load.save
+      status 201
+    end
+    
   end
 
 
