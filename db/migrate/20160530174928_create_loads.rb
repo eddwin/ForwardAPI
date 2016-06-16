@@ -3,6 +3,7 @@ class CreateLoads < ActiveRecord::Migration
       create_table :loads do |t|
         t.text :hourly_loads
         t.string :time
+        t.string :size
         t.timestamps
       end
     end

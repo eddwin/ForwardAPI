@@ -20,7 +20,10 @@ class PowerAPI < Sinatra::Base
       halt 400
     end
     load = Load.new
-    load.hourly_loads = req['loads'].to_json
+    hourly_loads = req['loads'].to_json
+    load.size = hourly_loads.size
+    load.hourly_loads = hourly_loads
+
     load.time = Time.now.to_f
 
     if load.save
