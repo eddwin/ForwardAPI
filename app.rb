@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
-require_relative 'model/load'
+require 'httparty'
+
 class PowerAPI < Sinatra::Base
 
   configure :production, :development do
@@ -11,23 +12,10 @@ class PowerAPI < Sinatra::Base
     'Hello, Im up and running!'
   end
 
-  post '/loads' do
-    content_type :json
-    begin
-      req = JSON.parse(request.body.read)
-      logger.info req
-    rescue
-      halt 400
-    end
-    load = Load.new
-    hourly_loads = req['loads'].to_json
-    load.hourly_loads = hourly_loads
+  post '/' do
 
-    load.time = Time.now.to_f
-
-    if load.save
-      status 201
-    end
+    url = 'http://192.168.0.103:7778/acc'
+    HTTParty.post(url,request)
 
   end
 

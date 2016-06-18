@@ -7,6 +7,8 @@ gem 'json'
 gem 'tilt'
 gem 'thin'
 
+gem 'httparty'
+
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'rake'
